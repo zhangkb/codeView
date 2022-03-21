@@ -17,7 +17,6 @@ git-bash 中文乱码解决
     将git 配置文件 `core.quotepath` 设置为 `false` 
     `quotepath` 表示引用路径
 
-    ```
+    
     git config --global core.quotepath false
-    ```
 
