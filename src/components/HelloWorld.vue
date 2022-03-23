@@ -1,13 +1,14 @@
 <!--
  * @Author: your name
  * @Date: 2022-02-18 15:58:53
- * @LastEditTime   : 2022-03-03 09:41:42
+ * @LastEditTime   : 2022-03-23 11:32:09
  * @LastEditors    : zhangKangbo
- * @FilePath       : \lemon\src\components\HelloWorld.vue
+ * @FilePath       : \codeView\src\components\HelloWorld.vue
 -->
 <script setup>
 import { ElMessage } from 'element-plus';
 import { ref } from 'vue'
+
 
 defineProps({
   msg: String

@@ -2,8 +2,8 @@
  * @Author: zhangKangbo
  * @Date: 2022-02-18 15:58:53
  * @LastEditors    : zhangKangbo
- * @LastEditTime   : 2022-02-21 10:50:58
- * @FilePath       : \lemon\src\App.vue
+ * @LastEditTime   : 2022-03-23 10:24:48
+ * @FilePath       : \codeView\src\App.vue
  * @Description: 
  * 
 -->
@@ -12,11 +12,13 @@
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
 import HelloWorld from './components/HelloWorld.vue'
 import Typeof from './components/typeof.vue';
+import NavMenus from './components/NavMenus.vue';
 </script>
 
 <template>
-  <HelloWorld />
-  <Typeof />
+  <!-- <nav-menu></nav-menu> -->
+  <NavMenus />
+  <!-- <Typeof /> -->
   <router-view></router-view>
 </template>
 
@@ -27,6 +29,5 @@ import Typeof from './components/typeof.vue';
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

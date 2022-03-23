@@ -7,9 +7,9 @@
    - 浏览器会把`HTML`模型解析成`DOM`,`CSS`解析成`CSSOM`,DOM和CSSOM合并就产生了渲染树`Render Tree`
    - 渲染树 -> 知道 -> 所有节点样式 -> 计算在页面上的大小和位置 -> 把节点绘制在页面上
    - 由于流式布局的存在，对渲染树的计算通常只需要遍历一次就可完成，但是 **`table`及其内部元素除外，它们可能需要多次计算，通常需要花费3倍的时间，这也是尽量不使用table布局的原因之一。**
-2. 重绘（Painting）
+2. 重绘（repaint）
    - 节点的`几何属性`、`样式` 发生改变，不 `影响布局`，称为重绘。比如`outline, visibility, color,background-color`等，重绘代价高昂。主要原因就是浏览器需要验证DOM树上其他节点元素的可见性。
-3. 回流 (Layout)
+3. 回流 (reflow)
    - 回流是 `布局、几何属性 `改变，影响页面布局。回流是影响浏览器性能的关键因素。一个元素回流可能会导致所有子元素以及DOM中紧随其后的节点、祖先节点元素的随后的回流。（可以理解为雪崩）
 
    <br />
@@ -72,3 +72,28 @@
 
    ```
    
+
+## 谈谈BFC
+
+   #### 1. 是什么？
+   Block Fmormatting Context 块级格式化上下文，实际上就是一个页面中的一块渲染区域，有自己的渲染规则，我的理解就是Block规则
+   1. 内部的盒子会在垂直方向上一个接一个的放置。
+   2. 对于同一个BFC的两个相邻的盒子的`margin`会发生重叠，与方向无关。
+   3. 每个元素的左外边距与包含块的左边界相接触(从左到右)，即使浮动元素依然如此。
+   4. BFC的区域不会与`Float`元素重叠
+   5. 计算BFC的高度时，浮动子元素也参与计算。
+   6. BFC就是页面上的一个隔离的独立容器，容器里的子元素不会影响到外面的元素，反之亦然。
+   
+   `BFC` 目的which形成一个相对外界独立的空间，让内部的子元素不会影响到外界元素。
+
+   #### 2. 触发条件
+   1. 根元素即`HTML`元素
+   2. 浮动元素：`float: left/right;`
+   3. `overflow`的值不为`visible` 也即是 `overflow: auto/scroll/hidden;`
+   4. `display: inline-block/inltable-cell/table-caption/table/inline-table/flex/inline-flex/grid/inline-grid;`
+   5. `position: absolute/fixed;`
+
+#### 3. 应用场景
+1. 防止`margin`塌陷。
+2. 清除浮动
+3. 多栏布局

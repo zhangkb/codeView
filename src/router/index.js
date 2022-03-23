@@ -2,29 +2,32 @@
  * @Author         : zhangKangbo
  * @Date           : 2022-02-21 10:20:23
  * @LastEditors    : zhangKangbo
- * @LastEditTime   : 2022-02-21 10:27:25
- * @FilePath       : \lemon\src\router\index.js
+ * @LastEditTime   : 2022-03-23 10:06:35
+ * @FilePath       : \codeView\src\router\index.js
  */
 import {createRouter, createWebHistory, createWebHashHistory} from 'vue-router'
 import { defineAsyncComponent } from 'vue'
+import RouterPath from './routerPath'
+const modules = import.meta.glob('../views/*/*.vue')
 
+let perRouter = RouterPath.map((item)=>{
+  item.component = modules[item.component]
+  return item
+})
+
+console.log('perRouter', perRouter);
+let routers = [
+  ...perRouter,
+  {
+    path: '/*',
+    redirect: '/',
+  },
+]
+console.log('routers', routers);
 const router = createRouter({ 
   // history: createWebHashHistory(),  // hash 模式
   history: createWebHistory(),  // history 模式
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: defineAsyncComponent(() => import(`../views/home.vue`)),
-      meta: {
-        title: '首页',
-      },
-    },
-    {
-      path: '/*',
-      redirect: '/',
-    },
-  ]
+  routes: routers,
 })
 
 // 全局路由守卫
