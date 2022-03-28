@@ -27,3 +27,7 @@ git-bash 中文乱码解决
     
     git config --global core.quotepath false
 
+
+`rebase` 为变基
+`git rebase -i` 命令可以压缩合并多次提交
+格式：`git rebase -i [startpoint] [endpoint]`

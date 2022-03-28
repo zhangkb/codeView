@@ -97,3 +97,106 @@
 1. 防止`margin`塌陷。
 2. 清除浮动
 3. 多栏布局
+
+
+
+### 垂直居中方式
+1. 利用定位 + `margin:auto`
+
+   ```
+      <style>
+         // 父级设置相对定位
+         .father{
+            width:500px;
+            height:300px;
+            border:1px solid #0a3b98;
+            position: relative;
+         }
+         // 子级绝对定位设置margin: auto 就会自动水平垂直居中，margin: 0 auto;就是水平居中
+         .son{
+            width:100px;
+            height:40px;
+            background: #f0a238;
+            position: absolute;
+            top:0;
+            left:0;
+            right:0;
+            bottom:0;
+            margin:auto;
+         }
+      </style>
+      <div class="father">
+         <div class="son"></div>
+      </div>
+   ```
+2. 利用定位 + `margin： 负值`
+3. 利用定位 + `transform`
+4. `flex`布局
+5. `grid`布局
+6. 总结：
+
+   根据元素标签的性质基本可以分为：
+   
+   - 内联元素居中布局
+
+      水平居中：行内元素可设置：`text-align: center`、flex父级 `display: flex; justify-content: center;`
+      
+      垂直居中：`line-height: height`
+
+   - 块级元素居中布局
+
+      水平居中：`margin: 0 auto`、绝对定位 + `left: 50%` + `margin: -self/2`
+
+      垂直居中：`position: absolute设置left、top、margin-left、margin-top(定高)`、`display: table-cell`、`transform: translate(x, y)`、`flex`(不定高，不定宽)、`grid`(不定高，不定宽)，兼容性相对比较差
+
+
+
+#### CSS 性能优化
+
+1. 实现方式
+
+      - 内联首屏关键CSS
+      - 异步加载CSS
+
+         在CSS文件请求、下载、解析完成之前,CSS会阻塞渲染，浏览器将不会渲染人和已处理的内容。
+
+         前面加载内联代码后，后面外部引用CSS则没必要阻塞浏览器渲染，这时候就能采取异步加载的方法了
+
+         使用js将link标签插入到head标签最后  
+         ```
+         // 创建link标签
+         const myCSS = document.createElement( "link" );
+         myCSS.rel = "stylesheet";
+         myCSS.href = "mystyles.css";
+         // 插入到header的最后位置
+         document.head.insertBefore( myCSS, document.head.childNodes[ document.head.childNodes.length - 1 ].nextSibling );
+         ```
+
+         设置link标签media属性为noexis，浏览器会认为当前样式表不适用当前类型，会在不阻塞页面渲染的情况下再进行下载。加载完成后，将media的值设为screen或all，从而让浏览器开始解析CSS
+         ```
+         <link rel="stylesheet" href="mystyles.css" media="noexist" onload="this.media='all'">
+         ```
+         通过rel属性将link元素标记为alternate可选样式表，也能实现浏览器异步加载。同样别忘了加载完成之后，将rel设回stylesheet
+         ```
+         <link rel="alternate stylesheet" href="mystyles.css" onload="this.rel='stylesheet'">
+         ```
+
+      - 资源压缩
+
+         利用webpack、gulp/grunt、rollup等模块化工具，将css代码进行压缩，使文件变小，大大降低了浏览器的加载时间
+
+
+
+      - 合理使用选择器
+
+         不要嵌套使用过多复杂选择器，最好不要三层以上
+
+         使用id选择器就没必要再进行嵌套
+
+         通配符和属性选择器效率最低，避免使用
+
+      - 减少使用昂贵的属性
+
+         在页面发生重绘的时候，昂贵属性如box-shadow/border-radius/filter/透明度/:nth-child等，会降低浏览器的渲染性能
+         
+      - 不要使用@import
