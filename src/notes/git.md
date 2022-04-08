@@ -2,6 +2,9 @@
 !q 强制退出
 qa! 放弃修改退出
 
+`git reflog` 查看历史操作记录
+
+`git log` 查看历史commit记录
 
 `git stash` 暂存当前更改
 

@@ -3,8 +3,8 @@
  * @Author         : zhangKangbo
  * @Date           : 2022-03-28 19:52:11
  * @LastEditors    : zhangKangbo
- * @LastEditTime   : 2022-03-28 20:10:31
- * @FilePath       : \codeView\src\views\Demo\viscalDiff.vue
+ * @LastEditTime   : 2022-03-29 15:49:51
+ * @FilePath       : \codeView\src\views\Demo\visualDiff.vue
 -->
 <template>
   <!-- <div class="a-text">1</div>
@@ -62,7 +62,7 @@ html {
 body {
   /* 视差元素的父级需要3D视角 */
   perspective: 1px;
-  transform-style: preserve-3d;
+  
   height: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -70,7 +70,8 @@ body {
 #app2 {
   width: 100vw;
   height: 200vh;
-  background: skyblue;
+  transform-style: preserve-3d;
+  // background: skyblue;
   padding-top: 100px;
 }
 .one {
